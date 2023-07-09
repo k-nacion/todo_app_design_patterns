@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/screens/homescreen.dart';
+import 'package:todo_app/theme.dart';
 
 void main() => runApp(const TodoApp());
 
@@ -10,9 +12,10 @@ class TodoApp extends StatelessWidget {
     return MaterialApp(
       title: 'Todos',
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        //todo: implement the next steps
-      ),
+      themeMode: ThemeMode.dark,
+      darkTheme: darkTheme,
+
+      home: const Homescreen(),
     );
   }
 }
