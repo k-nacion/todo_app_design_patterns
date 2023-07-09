@@ -1,0 +1,34 @@
+{
+  "todos": [
+    {
+      "title": "Complete Project Proposal",
+      "short_desc": "Write a detailed project proposal for the upcoming client meeting.",
+      "created": "2023-07-01T10:30:00Z",
+      "last_updated": "2023-07-03T15:45:00Z"
+    },
+    {
+      "title": "Buy Groceries",
+      "short_desc": "Purchase items for this week's meals: vegetables, milk, eggs, and bread.",
+      "created": "2023-07-02T09:15:00Z",
+      "last_updated": "2023-07-02T09:30:00Z"
+    },
+    {
+      "title": "Call Mom",
+      "short_desc": "Give Mom a call to wish her a happy birthday and catch up on family news.",
+      "created": "2023-07-03T18:00:00Z",
+      "last_updated": "2023-07-04T09:20:00Z"
+    },
+    {
+      "title": "Prepare Presentation",
+      "short_desc": "Gather data and create slides for the upcoming team meeting presentation.",
+      "created": "2023-07-04T14:00:00Z",
+      "last_updated": "2023-07-06T11:10:00Z"
+    },
+    {
+      "title": "Book Flight Tickets",
+      "short_desc": "Research and book flight tickets for the upcoming vacation.",
+      "created": "2023-07-05T16:30:00Z",
+      "last_updated": "2023-07-05T16:45:00Z"
+    }
+  ]
+}
