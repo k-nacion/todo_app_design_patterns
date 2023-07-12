@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:todo_app/model/todo.dart';
+import 'package:todo_app/widgets/todo_list_item.dart';
 
 part 'home_screen_tab_pages.dart';
 
@@ -56,6 +57,12 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void _dismissibleOnDismissed(DismissDirection dismissDirection, Todo todo) {
+    setState(() {
+      todoList.remove(todo);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -104,13 +111,9 @@ class _HomeScreenState extends State<HomeScreen> {
           itemBuilder: (context, index) {
             final todo = todoList[index];
 
-            return ListTile(
-              leading: Checkbox(
-                value: todo.isCompleted,
-                onChanged: (value) => _checkBoxOnChanged(value, todo),
-              ),
-              title: Text(todo.title),
-              subtitle: Text(todo.shortDesc ?? ''),
+            return TodoListItem(
+              todo: todo,
+              checkboxOnChange: _checkBoxOnChanged, dismissibleOnDismissed: _dismissibleOnDismissed,
             );
           },
         );
