@@ -5,9 +5,11 @@ class TodoDetailScreen extends StatelessWidget {
   const TodoDetailScreen({
     this.todo,
     super.key,
-  });
+  }) : _hasTodo = todo != null;
 
   final Todo? todo;
+
+  final bool _hasTodo;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class TodoDetailScreen extends StatelessWidget {
 
   AppBar _createAppBar() {
     return AppBar(
-      title: Text(todo != null ? 'Edit Todo' : 'Add Todo'),
+      title: Text(_hasTodo ? 'Edit Todo' : 'Add Todo'),
       centerTitle: true,
     );
   }
@@ -37,10 +39,16 @@ class TodoDetailScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
         children: [
-          TextFormField(decoration: const InputDecoration(hintText: 'What needs to be done? ')),
-          SizedBox(height: 24),
+          TextFormField(
+            decoration: const InputDecoration(
+              hintText: 'What needs to be done?',
+            ),
+            initialValue: _hasTodo ? todo!.title : '',
+          ),
+          const SizedBox(height: 24),
           TextFormField(
             maxLines: 8,
+            initialValue: _hasTodo ? todo!.shortDesc : '',
             decoration: const InputDecoration(hintText: 'Additional Notes...'),
           )
         ],
