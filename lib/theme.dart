@@ -11,7 +11,7 @@ const onPrimaryDarkColor = Color(0xFFd8d4d0);
 
 ThemeData darkTheme = ThemeData.from(
   colorScheme: ColorScheme.fromSeed(
-    seedColor: secondaryColor,
+    seedColor: onPrimarColor,
     // background: primaryDarkColor,
     // onBackground: onPrimaryDarkColor,
     // primary: primaryDarkColor,
@@ -19,7 +19,10 @@ ThemeData darkTheme = ThemeData.from(
     // secondary: secondaryColor,
     // primaryContainer: secondaryColor,
     // surface: Colors.transparent,
+
   ),
   useMaterial3: true,
   textTheme: GoogleFonts.poppinsTextTheme(),
-).copyWith();
+).copyWith(
+
+);
