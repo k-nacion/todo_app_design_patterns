@@ -3,9 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:todo_app/model/todo.dart';
+import 'package:todo_app/screens/todo_detail_screen.dart';
 import 'package:todo_app/widgets/todo_list_item.dart';
 
-part 'home_screen_tab_pages.dart';
+part 'home_screen_state_enums.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -79,6 +80,16 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  Widget _createFloatingActionButton() {
+    return FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute<TodoDetailScreen>(
+            builder: (context) => const TodoDetailScreen(),
+          ));
+        },
+        child: const Icon(Icons.add));
+  }
+
   Widget _createBottomNavigationBar() {
     return NavigationBar(
       selectedIndex: currentPageIndex,
@@ -113,7 +124,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
             return TodoListItem(
               todo: todo,
-              checkboxOnChange: _checkBoxOnChanged, dismissibleOnDismissed: _dismissibleOnDismissed,
+              checkboxOnChange: _checkBoxOnChanged,
+              dismissibleOnDismissed: _dismissibleOnDismissed,
             );
           },
         );
@@ -131,8 +143,4 @@ AppBar _createAppBar() {
       IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
     ],
   );
-}
-
-Widget _createFloatingActionButton() {
-  return FloatingActionButton(onPressed: () {}, child: const Icon(Icons.add));
 }

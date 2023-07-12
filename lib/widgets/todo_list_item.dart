@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/model/todo.dart';
+import 'package:todo_app/screens/todo_detail_screen.dart';
 
 class TodoListItem extends StatelessWidget {
   const TodoListItem({
@@ -19,6 +20,11 @@ class TodoListItem extends StatelessWidget {
       key: ValueKey<Todo>(todo),
       onDismissed: (direction) => dismissibleOnDismissed(direction, todo),
       child: ListTile(
+        onTap: () => Navigator.of(context).push(MaterialPageRoute<TodoDetailScreen>(
+          builder: (context) => TodoDetailScreen(
+            todo: todo,
+          ),
+        )),
         leading: Checkbox(
           value: todo.isCompleted,
           onChanged: (value) => checkboxOnChange(value, todo),
