@@ -17,7 +17,7 @@ class TodoListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      key: ValueKey<Todo>(todo),
+      key: ValueKey<String>(todo.id),
       onDismissed: (direction) => dismissibleOnDismissed(direction, todo),
       child: ListTile(
         onTap: () => Navigator.of(context).push(MaterialPageRoute<TodoDetailScreen>(
@@ -29,8 +29,14 @@ class TodoListItem extends StatelessWidget {
           value: todo.isCompleted,
           onChanged: (value) => checkboxOnChange(value, todo),
         ),
-        title: Text(todo.title),
-        subtitle: Text(todo.shortDesc ?? ''),
+        title: Text(
+          todo.title,
+          style: todo.isCompleted ? const TextStyle(decoration: TextDecoration.lineThrough) : null,
+        ),
+        subtitle: Text(
+          todo.shortDesc ?? '',
+          style: todo.isCompleted ? const TextStyle(decoration: TextDecoration.lineThrough) : null,
+        ),
       ),
     );
   }

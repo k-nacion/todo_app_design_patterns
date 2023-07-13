@@ -5,8 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:todo_app/model/todo.dart';
 import 'package:todo_app/screens/todo_detail_screen.dart';
 import 'package:todo_app/widgets/todo_list_item.dart';
+import 'package:uuid/uuid.dart';
 
-part 'home_screen_state_enums.dart';
+part 'home_screen_enums.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -36,6 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
       final lastUpdated = DateTime.parse(t['last_updated'] as String);
 
       final todo = Todo(
+        id: const Uuid().v1(),
         title: title,
         shortDesc: shortDesc,
         created: created,
@@ -62,6 +64,23 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       todoList.remove(todo);
     });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          todo.title,
+          overflow: TextOverflow.ellipsis,
+        ),
+        action: SnackBarAction(
+          label: 'UNDO',
+          onPressed: () {
+            setState(() {
+              todoList.add(todo);
+            });
+          },
+        ),
+      ),
+    );
   }
 
   @override
@@ -88,6 +107,52 @@ class _HomeScreenState extends State<HomeScreen> {
           ));
         },
         child: const Icon(Icons.add));
+  }
+
+  AppBar _createAppBar() {
+    return AppBar(
+      title: const Text('Vanilla Example'),
+      actions: [
+        //TODO (kenn): refactor onTap callbacks in [PopupMenuItem]s so that it does not repeat.
+
+        IconButton(onPressed: () {}, icon: const Icon(Icons.filter_list)),
+        // IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
+        PopupMenuButton(
+          itemBuilder: (context) {
+            return <PopupMenuItem<void>>[
+              PopupMenuItem(
+                child: const Text('Mark all as completed'),
+                onTap: () {
+                  final completedList = todoList.map(
+                    (e) => e.copyWith(
+                      isCompleted: true,
+                    ),
+                  );
+
+                  setState(() {
+                    todoList.replaceRange(0, todoList.length, completedList);
+                  });
+                },
+              ),
+              PopupMenuItem(
+                child: const Text('Unmark all as completed'),
+                onTap: () {
+                  final completedList = todoList.map(
+                    (e) => e.copyWith(
+                      isCompleted: false,
+                    ),
+                  );
+
+                  setState(() {
+                    todoList.replaceRange(0, todoList.length, completedList);
+                  });
+                },
+              ),
+            ];
+          },
+        )
+      ],
+    );
   }
 
   Widget _createBottomNavigationBar() {
@@ -124,8 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
             return TodoListItem(
               todo: todo,
-              checkboxOnChange: _checkBoxOnChanged,
-              dismissibleOnDismissed: _dismissibleOnDismissed,
+              checkboxOnChange: _checkBoxOnChanged, dismissibleOnDismissed: _dismissibleOnDismissed,
             );
           },
         );
@@ -133,14 +197,4 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget get _statPage => const Center(child: Text('Our developers is already on it...'));
-}
-
-AppBar _createAppBar() {
-  return AppBar(
-    title: const Text('Vanilla Example'),
-    actions: [
-      IconButton(onPressed: () {}, icon: const Icon(Icons.filter_list)),
-      IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
-    ],
-  );
 }
