@@ -16,7 +16,7 @@ class TodoListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      key: ValueKey<Todo>(todo),
+      key: ValueKey<String>(todo.id),
       onDismissed: (direction) => dismissibleOnDismissed(direction, todo),
       child: ListTile(
         leading: Checkbox(

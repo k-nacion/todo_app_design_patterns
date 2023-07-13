@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:todo_app/model/todo.dart';
 import 'package:todo_app/widgets/todo_list_item.dart';
+import 'package:uuid/uuid.dart';
 
 part 'home_screen_enums.dart';
 
@@ -35,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
       final lastUpdated = DateTime.parse(t['last_updated'] as String);
 
       final todo = Todo(
+        id: const Uuid().v1(),
         title: title,
         shortDesc: shortDesc,
         created: created,
