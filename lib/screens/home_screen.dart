@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:todo_app/model/todo.dart';
 import 'package:todo_app/widgets/todo_list_item.dart';
 
-part 'home_screen_tab_pages.dart';
+part 'home_screen_enums.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -96,6 +96,52 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  AppBar _createAppBar() {
+    return AppBar(
+      title: const Text('Vanilla Example'),
+      actions: [
+        //TODO (kenn): refactor onTap callbacks in [PopupMenuItem]s so that it does not repeat.
+
+        IconButton(onPressed: () {}, icon: const Icon(Icons.filter_list)),
+        // IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
+        PopupMenuButton(
+          itemBuilder: (context) {
+            return <PopupMenuItem<void>>[
+              PopupMenuItem(
+                child: const Text('Mark all as completed'),
+                onTap: () {
+                  final completedList = todoList.map(
+                    (e) => e.copyWith(
+                      isCompleted: true,
+                    ),
+                  );
+
+                  setState(() {
+                    todoList.replaceRange(0, todoList.length, completedList);
+                  });
+                },
+              ),
+              PopupMenuItem(
+                child: const Text('Unmark all as completed'),
+                onTap: () {
+                  final completedList = todoList.map(
+                    (e) => e.copyWith(
+                      isCompleted: false,
+                    ),
+                  );
+
+                  setState(() {
+                    todoList.replaceRange(0, todoList.length, completedList);
+                  });
+                },
+              ),
+            ];
+          },
+        )
+      ],
+    );
+  }
+
   Widget _createBottomNavigationBar() {
     return NavigationBar(
       selectedIndex: currentPageIndex,
@@ -139,16 +185,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget get _statPage => const Center(child: Text('Our developers is already on it...'));
-}
-
-AppBar _createAppBar() {
-  return AppBar(
-    title: const Text('Vanilla Example'),
-    actions: [
-      IconButton(onPressed: () {}, icon: const Icon(Icons.filter_list)),
-      IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
-    ],
-  );
 }
 
 Widget _createFloatingActionButton() {
