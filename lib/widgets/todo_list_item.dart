@@ -23,8 +23,14 @@ class TodoListItem extends StatelessWidget {
           value: todo.isCompleted,
           onChanged: (value) => checkboxOnChange(value, todo),
         ),
-        title: Text(todo.title),
-        subtitle: Text(todo.shortDesc ?? ''),
+        title: Text(
+          todo.title,
+          style: todo.isCompleted ? const TextStyle(decoration: TextDecoration.lineThrough) : null,
+        ),
+        subtitle: Text(
+          todo.shortDesc ?? '',
+          style: todo.isCompleted ? const TextStyle(decoration: TextDecoration.lineThrough) : null,
+        ),
       ),
     );
   }
