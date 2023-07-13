@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class Todo extends Equatable {
   const Todo({
+    required this.id,
     required this.title,
     required this.created,
     required this.lastUpdated,
@@ -9,6 +10,7 @@ class Todo extends Equatable {
     this.shortDesc,
   });
 
+  final String id;
   final String title;
   final bool isCompleted;
   final String? shortDesc;
@@ -22,20 +24,27 @@ class Todo extends Equatable {
     DateTime? lastUpdated,
   }) {
     return Todo(
-      title: title ?? this.title,
+      id: id,
       created: created,
+      title: title ?? this.title,
       isCompleted: isCompleted ?? this.isCompleted,
       shortDesc: shortDesc ?? this.shortDesc,
       lastUpdated: lastUpdated ?? this.lastUpdated,
     );
   }
 
-
   @override
   String toString() {
-    return 'Todo{title: $title, isCompleted: $isCompleted, shortDesc: $shortDesc, created: $created, lastUpdated: $lastUpdated}';
+    return 'Todo{id: $id, title: $title, isCompleted: $isCompleted, shortDesc: $shortDesc, created: $created, lastUpdated: $lastUpdated}\n';
   }
 
   @override
-  List<Object?> get props => [title, isCompleted, shortDesc, created, lastUpdated];
+  List<Object?> get props => [
+        id,
+        title,
+        isCompleted,
+        shortDesc,
+        created,
+        lastUpdated,
+      ];
 }
