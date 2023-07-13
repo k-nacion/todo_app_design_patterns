@@ -61,6 +61,23 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       todoList.remove(todo);
     });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          todo.title,
+          overflow: TextOverflow.ellipsis,
+        ),
+        action: SnackBarAction(
+          label: 'UNDO',
+          onPressed: () {
+            setState(() {
+              todoList.add(todo);
+            });
+          },
+        ),
+      ),
+    );
   }
 
   @override
@@ -113,7 +130,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
             return TodoListItem(
               todo: todo,
-              checkboxOnChange: _checkBoxOnChanged, dismissibleOnDismissed: _dismissibleOnDismissed,
+              checkboxOnChange: _checkBoxOnChanged,
+              dismissibleOnDismissed: _dismissibleOnDismissed,
             );
           },
         );
